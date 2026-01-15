@@ -1,79 +1,48 @@
-# 🐕 Chill Tap Buddy - 癒し系デスクトップバディ
-
-ポモドーロタイマーとバーチャルペットを組み合わせた Unity 2D デスクトップアプリケーション。
+# 🐕 Chill Tap Buddy | 癒し系デスクトップバディ & ポモドーロタイマー
 
 ![Unity](https://img.shields.io/badge/Unity-2022.3%20LTS-black?logo=unity)
-![C#](https://img.shields.io/badge/C%23-239120?logo=c-sharp&logoColor=white)
+![C#](https://img.shields.io/badge/Language-C%23-239120?logo=c-sharp&logoColor=white)
+![Architecture](https://img.shields.io/badge/Architecture-MVC%20%2F%20Event--Driven-blueviolet)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
-## 📖 プロジェクト概要
+## 📖 プロジェクト概要 (Overview)
+「生産性向上」と「癒し」を融合させたデスクトップ常駐型アプリケーション。
+ポモドーロ・テクニックに基づく集中タイマー機能と、インタラクティブなバーチャルペット育成要素を組み合わせ、ユーザーの作業継続を技術的にサポートします。
 
-Chill Tap Buddy は、癒し系の集中力サポートツールです。ポモドーロテクニックで集中力を高めながら、可愛いバーチャルバディとの触れ合いを楽しめます。
+**【開発の目的】**
+単なるツール開発に留まらず、**「Unityにおけるソフトウェアデザインパターンの実践」**（MVC、Observer、Singleton）をテーマに、保守性と拡張性の高いコード設計を目指しました。
 
-## ✨ 主な機能
+---
 
-- **ポモドーロタイマー**：25分間の集中セッションで作業効率を向上
-- **インタラクティブバディ**：タップでチワワが反応し、アニメーションと効果音を再生
-- **報酬システム**：集中セッション完了でポイント獲得
-- **連続日数トラッキング**：Streak システムで継続使用を促進
-- **データ永続化**：進捗とポイントを自動保存
+## ✨ 主な機能 (Features)
+- **ポモドーロタイマー**：25分間の集中セッション管理（ステートマシンによる制御）
+- **インタラクティブバディ**：クリック等の入力に反応するアニメーションシステム
+- **報酬システム**：集中時間に応じたポイント計算アルゴリズム
+- **データ永続化**：進捗状況とストリーク（継続日数）のローカル保存
+- **UI/UX**：作業を妨げないミニマルなデザインと直感的な操作性
 
-## 🛠️ 技術構成
+---
 
-### 開発環境
-- Unity 2022.3 LTS
-- C# プログラミング言語
-- Unity 2D Render Pipeline
+## 🛠️ 技術構成 (Technical Architecture)
 
-### システムアーキテクチャ
-```
-├── GameManager.cs      # メインコントローラー、イベント管理
-├── FocusTimer.cs       # ポモドーロタイマーロジック
-├── BuddyController.cs  # バディのインタラクションとアニメーション
-├── RewardSystem.cs     # ポイント計算と報酬メカニズム
-├── SaveService.cs      # JSON データ永続化（PlayerPrefs）
-├── UIController.cs     # ユーザーインターフェース管理
-└── InputTracker.cs     # キーボードアクティビティ追跡
-```
+本プロジェクトでは、各クラスの責務（Responsibility）を明確にするため、以下のアーキテクチャを採用しています。
 
-### デザインパターン
-- **シングルトンパターン**：マネージャークラスのグローバルアクセスを保証
-- **オブザーバーパターン**：C# イベントによるモジュール間の疎結合
-- **MVC アーキテクチャ**：データ、ロジック、UIの分離
+### 1. デザインパターンの適用
+| Pattern | Implementation & Benefit |
+| :--- | :--- |
+| **MVC Architecture** | データ(`FocusTimer`)、表示(`UIController`)、制御(`GameManager`)を分離し、仕様変更に強い構造を実現。 |
+| **Observer Pattern** | C#の `Action/Event` を活用。タイマー完了通知などを疎結合（Loose Coupling）で実装し、スパゲッティコードを回避。 |
+| **Singleton** | `GameManager` 等のライフサイクル管理に使用し、グローバルな状態管理を一元化。 |
 
-## 🎮 操作方法
-
-1. **Start Focus** をクリックして25分間の集中タイマーを開始
-2. 集中中にバディをタップすると少量のボーナスポイントを獲得
-3. タイマー終了時に完了報酬を自動取得
-4. 毎日継続すると Streak ボーナスが累積
-
-## 📁 プロジェクト構造
-```
-Assets/
-├── Scripts/          # C# スクリプト
-│   ├── Core/         # コアシステム（セーブ、報酬）
-│   ├── Timer/        # タイマーモジュール
-│   ├── Buddy/        # バディインタラクション
-│   └── UI/           # UI コントロール
-├── Animations/       # アニメーションコントローラー
-├── Audio/            # 効果音ファイル
-├── Sprites/          # 画像素材
-└── Scenes/           # シーンファイル
-```
-
-## 🚀 今後の拡張予定
-
-- [ ] 複数のバディスキンアンロックシステム
-- [ ] バディアニメーション（待機、喜び、睡眠）
-- [ ] 日次/週次の集中統計レポート
-- [ ] カスタム集中時間設定
-- [ ] BGM 選択機能
-
-## 👤 作者
-
-**LU-KE-MIN**
-
-## 📄 ライセンス
-
-MIT ライセンス
+### 2. システム構成
+```text
+├── Core
+│   ├── GameManager.cs      # アプリケーション全体のライフサイクル管理
+│   └── SaveService.cs      # JSONシリアライズを用いたデータ永続化
+├── Logic (Model)
+│   ├── FocusTimer.cs       # タイマーロジック（ステート管理）
+│   ├── RewardSystem.cs     # ポイント算出計算
+│   └── InputTracker.cs     # アクティビティ計測
+└── Presentation (View/Controller)
+    ├── UIController.cs     # UIイベントハンドリング
+    └── BuddyController.cs  # Animator制御とインタラクション
