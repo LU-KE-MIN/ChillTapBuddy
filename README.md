@@ -46,3 +46,42 @@
 └── Presentation (View/Controller)
     ├── UIController.cs     # UIイベントハンドリング
     └── BuddyController.cs  # Animator制御とインタラクション
+
+3. 開発環境
+Engine: Unity 2022.3 LTS (2D Render Pipeline)
+
+Language: C#
+
+Version Control: Git
+
+📁 プロジェクト構造 (Directory Structure)
+Plaintext
+
+Assets/
+├── Scripts/
+│   ├── Core/         # 基盤システム（シングルトン、セーブロード）
+│   ├── Logic/        # 純粋なC#ロジック（タイマー、計算式）
+│   ├── View/         # Unity依存の表示処理（UI、バディ）
+│   └── Tests/        # （今後の拡張用）単体テストディレクトリ
+├── Animations/       # アニメーションステートマシン
+├── Audio/            # SE・BGMアセット
+└── Sprites/          # 2Dスプライトアセット
+
+🚀 今後の拡張構想 (Future Roadmap)
+サーバーサイドエンジニアとしての経験を活かし、バックエンド連携機能の実装を計画しています。
+
+[ ] クラウドセーブ機能: PlayFab または Firebase を用いたクロスプラットフォームなデータ同期
+
+[ ] Web API連携: 天気API等と連携し、バディの服装や背景を動的に変化させる機能
+
+[ ] ランキングシステム: ユーザー間の集中時間を競うリーダーボード実装
+
+👤 作者
+LU-KE-MIN
+
+Backend Engineer (C#/.NET) transitioning to Game Development.
+
+Focus on High-Performance Architecture & Data Consistency.
+
+📄 ライセンス
+MIT License
